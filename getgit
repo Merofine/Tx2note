@@ -45,6 +45,14 @@ Enter same passphrase again:
 
 
 git for managing version:
+	first of all,cd the file,just one TIME:
+		git init 
+	add someone in the local tree,onething you should know is that when you change someone,you have to "git add (it)",and "git commit -m "anything"",bacause the new vetsion is comming,or you also donot do that:
+		git add (one file,or you can write"--all")
+	check out state:
+		git status
+	git the local:
+		git commit -m "anything"
 
 	cd file ,check the branch now you ara in:
 		git branch
