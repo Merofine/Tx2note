@@ -55,6 +55,9 @@ git for managing version:
 		git checkout master
 		git merge --no-ff (branch name)
 
+	when you want to see all the branch by graph:
+		git log --graph
+
 
 
 ---------------------------------------------------------------
