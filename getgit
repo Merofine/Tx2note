@@ -1,0 +1,38 @@
+---------------------------------------------------------------
+get git:
+	sudo apt-get install openssh-server openssh-client 
+	sudo /etc/init.d/ssh restart 
+	sudo apt-get install git-core 
+	
+	create count:
+		ssh-keygen -C 'your@email' -t rsa
+	then raise":Enter file in which to save the key (/home/nvidia/.ssh/id_rsa):"
+	put down sshkey's name as you like.
+	then  it said"Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+"
+	put down you password,in other hand,you can putdown return,just nothing.
+
+		
+	then it would put out (sshkeyname) and (sshkeyname).put in home.you can (CRTL + H) on home and you can see them.
+	
+	gedit  (sshkeyname).put
+	copy all,then login github to set up message
+
+	then open email,and allow it.after that.you have to test it.
+	ssh -T git@github.com
+	if you see successsfuilly ,you can do next.
+		git config --global user.name "name"
+		git config --global user.email  "your@email.com"
+	for beautiful to see message: 
+		git config --global color.ui auto
+-------------------------------USE------------------------------
+ git instant github:
+	first of all,cd the file:
+		git init 
+	add someone in the local tree:
+		git add (file)
+	check out state:
+		git status
+	git the local:
+		git command 

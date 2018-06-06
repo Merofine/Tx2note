@@ -1,0 +1,216 @@
+---------------------------------------------------------------------------------------
+get Pangolin:
+
+sudo apt-get install libglew-dev
+sudo apt-get install cmake
+sudo apt-get install libpython2.7-dev
+sudo apt-get install ffmpeg libavcodec-dev libavutil-dev libavformat-dev libswscale-dev
+sudo apt-get install libdc1394-22-dev libraw1394-dev
+sudo apt-get install libjpeg-dev libpng12-dev libtiff5-dev libopenexr-dev
+git clone https://github.com/stevenlovegrove/Pangolin.git
+cd Pangolin
+mkdir build
+cd build
+cmake ..
+make
+
+get Eigen3:
+
+sudo apt-get install libeigen3-dev 
+---------------------------------Process--------------------------------------
+create workspace:
+	mkdir Tx2SlamPro
+	cd Tx2SlamPro
+	mkdir src
+	cd src
+	catkin_init_workspace
+	cd ..
+	catkin_make
+	cd build
+	make -j4 -l4
+	gedit ~/.bashrc
+	create:
+		source /opt/ros/kinetic/setup.bash
+		source /home/nvidia/Tx2SlamPro/devel/setup.bash
+	source ~/.bashrc
+
+get Pro(ORBSLAM2):
+	cd ~/Tx2SlamPro/src
+	git clone https://github.com/raulmur/ORB_SLAM2.git ORB_SLAM2
+	make DBoW2:
+		cd ORB_SLAM2/Thirdparty/DBoW2/
+		mkdir build
+		cd build
+		cmake ..
+		make
+
+	make g2o:
+		cd ../g2o
+		mkdir build
+		cd build
+		cmake ..
+		make
+
+	increase the lib,find ORB_SLAM2/Examples/ROS/ORB_SLAM2 CMakeLists.txt
+	and change the code ,like this:
+
+		set(LIBS 
+		${OpenCV_LIBS} 
+		${EIGEN3_LIBS}		
+		${Pangolin_LIBRARIES}
+		${PROJECT_SOURCE_DIR}/../../../Thirdparty/DBoW2/lib/libDBoW2.so
+		${PROJECT_SOURCE_DIR}/../../../Thirdparty/g2o/lib/libg2o.so
+		${PROJECT_SOURCE_DIR}/../../../lib/libORB_SLAM2.so
+		-lboost_system
+		)
+	change ros topic at ~/Tx2SlamPro/src/ORB_SLAM2/Examples/ROS/ORB_SLAM2/src,for instance
+  	,now you want run the stereo,and you should open ros_stereo:
+        	
+		gedit ros_stereo.cc
+		change code as follow:			
+			message_filters::Subscriber<sensor_msgs::Image> left_sub(nh, "/zed/left/image_raw_color", 1);
+    			message_filters::Subscriber<sensor_msgs::Image> right_sub(nh, "/zed/right/image_raw_color", 1);
+	
+	cd ~/Tx2SlamPro/src/ORB_SLAM2
+	./build.sh    (should keep internet)
+	./build_ros.sh(should keep internet)
+
+	zed SDK and zed_ros_wrapper:
+		download SDK:https://www.stereolabs.com/developers/release/2.4/#sdkdownloads_anchor
+		then put the file.run into home
+		open new terminal :sh ZED_SDK_Linux_JTX2_JP3.2_v2.4.0.run
+		then y y y y ,just ok
+
+		sudo apt-get install libpcl1
+		sudo apt-get install ros-kinetic-pcl-ros 
+		cd ~/Tx2SlamPro
+		catkin_make
+		source ./devel/setup.bash	
+
+	run your project!
+	new terminal:
+		roscore
+	new terminal:
+		rosrun ORB_SLAM2 Stereo /home/nvidia/Tx2SlamPro/src/ORB_SLAM2/Vocabulary/ORBvoc.txt /home/nvidia/Tx2SlamPro/src/ORB_SLAM2/Examples/Stereo/EuRoC.yaml true
+	new terminal:
+		roslaunch zed_wrapper display.launch
+
+	then it would open rviz and you click camera and choose "Image Topic"into ""
+why shine????
+	
+---------------------------------------------------------------------------------------
+get ros kinetic:
+mkdir -p ~/ROS
+cd ~/ROS
+git clone https://github.com/ncnynl/installROSTX2.git
+cd installROSTX2
+./installROS.sh
+
+create a termtest ros:
+roscore
+
+sudo apt-get install ros-kinetic-desktop-full
+
+ros conf,so you can put them in ~/.bashrc:
+source /opt/ros/kinetic/setup.bash
+source /home/nvidia/Tx2SlamPro/devel/setup.bash
+
+then you should init ros:
+sudo rosdep init
+rosdep update
+
+
+
+get Pro(ORBSLAM2):
+
+git clone https://github.com/raulmur/ORB_SLAM2.git ORB_SLAM2
+
+
+
+
+make DBoW2:
+
+cd ORB_SLAM2/Thirdparty/DBoW2/
+mkdir build
+cd build
+cmake ..
+make
+
+
+
+make g2o:
+
+cd ../g2o
+mkdir build
+cd build
+cmake ..
+make
+
+---------------------------------------------------------------------------------------
+change the source:
+
+gedit ~/.bashrc
+increase:export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:/home/nvidia/ORB_SLAM2/Examples/ROS
+then save and out:source ~/.bashrc
+
+
+increase the lib,find ORB_SLAM2/Examples/ROS/ORB_SLAM2 CMakeLists.txt
+and change the code ,like this:
+
+set(LIBS 
+${OpenCV_LIBS} 
+${EIGEN3_LIBS}
+${Pangolin_LIBRARIES}
+${PROJECT_SOURCE_DIR}/../../../Thirdparty/DBoW2/lib/libDBoW2.so
+${PROJECT_SOURCE_DIR}/../../../Thirdparty/g2o/lib/libg2o.so
+${PROJECT_SOURCE_DIR}/../../../lib/libORB_SLAM2.so
+-lboost_system
+)
+
+cd ORB_SLAM2 ,then:
+
+./build.sh
+
+----------------------------------Topic choose-----------------------------------------
+change ros topic at ~/Tx2SlamPro/src/ORB_SLAM2/Examples/ROS/ORB_SLAM2/src,for instance
+,now you want run the stereo,and you should open ros_stereo:
+
+gedit ros_stereo.cc
+change code as follow:			
+	message_filters::Subscriber<sensor_msgs::Image> left_sub(nh, "/zed/left/image_raw_color", 1);
+	message_filters::Subscriber<sensor_msgs::Image> right_sub(nh, "zed/right/image_raw_color", 1);
+
+cd ~/Tx2SlamPro/src/ORB_SLAM2
+./build.sh    (should keep internet)
+./build_ros.sh(should keep internet)
+
+
+More topics as follow:
+	Left camera
+		/zed/rgb/image_rect_color : Color rectified image (left RGB image by default).
+
+		/zed/rgb/image_raw_color : Color unrectified image (left RGB image by default).
+
+		/zed/rgb/camera_info : Camera calibration data.
+
+		/zed/left/image_rect_color : Color rectified left image.
+
+		/zed/left/image_raw_color : Color unrectified left image.
+
+		/zed/left/camera_info : Left camera calibration data.
+
+	Right camera
+		/zed/right/image_rect_color : Color rectified right image.
+
+		/zed/right/image_raw_color : Color unrectified right image.
+
+		/zed/right/camera_info : Right camera calibration data.
+
+	Depth and point cloud
+		/zed/depth/depth_registered : Depth map image registered on left image (by default 32 bits float, in meters).
+
+		/zed/point_cloud/cloud_registered : Registered color point cloud.
+
+	Visual odometry
+		/zed/odom : Absolute 3D position and orientation relative to zed_initial_frame.
+---------------------------------------------------------------------------------------
