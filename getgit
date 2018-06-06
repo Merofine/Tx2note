@@ -35,4 +35,10 @@ Enter same passphrase again:
 	check out state:
 		git status
 	git the local:
-		git command 
+ 		git commit -m "anything"
+	
+	then you login the github and create new repository,you should try you best to let the name is the same of the local repositort's name.
+		git remote add (name as sign) git@github.com:Merofine/Tx2note.git 
+	
+	push you want:
+		git push -u Tx2note master
