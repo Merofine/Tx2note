@@ -42,3 +42,19 @@ Enter same passphrase again:
 	
 	push you want:
 		git push -u Tx2note master
+
+
+git for managing version:
+
+	cd file ,check the branch now you ara in:
+		git branch
+	switchover the branch ,if you have no this branch ,it will create new one:
+		git checkout -b (branch name)
+
+	after finish it ,you can fix them to get new branch master:
+		git checkout master
+		git merge --no-ff (branch name)
+
+
+
+---------------------------------------------------------------
