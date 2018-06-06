@@ -30,7 +30,7 @@ Enter same passphrase again:
  git instant github:
 	first of all,cd the file:
 		git init 
-	add someone in the local tree:
+	add someone in the local tree,onething you should know is that when you change someone,you should "git add (it)",and "git commit -m "anything"",bacause the new vetsion is comming,or you also donot do that:
 		git add (file)
 	check out state:
 		git status
@@ -38,7 +38,7 @@ Enter same passphrase again:
  		git commit -m "anything"
 	
 	then you login the github and create new repository,you should try you best to let the name is the same of the local repositort's name.
-		git remote add (name as sign) git@github.com:Merofine/Tx2note.git 
+		git remote add (name as sign,and i write "Tx2note") git@github.com:Merofine/Tx2note.git 
 	
 	push you want:
 		git push -u Tx2note master
