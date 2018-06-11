@@ -96,7 +96,7 @@ get Pro(ORBSLAM2):
 		roslaunch zed_wrapper display.launch
 
 	then it would open rviz and you click camera and choose "Image Topic"into ""
-why shine????
+why shine?because of Light is easy to influence the ZED.So you should put down ZED a little.
 	
 ---------------------------------------------------------------------------------------
 get ros kinetic:
